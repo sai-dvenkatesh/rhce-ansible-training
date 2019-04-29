@@ -1,0 +1,33 @@
+---
+- name: Install Mariadb Server
+  hosts: servera
+  tasks: 
+    - name: Install mariadb and mysql
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - mariadb-server
+        - MySQL-python
+    - name: start and enable mariadb
+      service:
+        name: mariadb
+        state: started
+        enabled: true
+    - name: Create databases using nested loops
+      mysql_db:
+        name: "{{ item }}"
+        state: present
+      with_items:
+          - clientdb
+          - employeedb
+          - providerdb
+    - name: Create db users and add to databases
+      mysql_user:
+        name: "{{ item[0] }}"
+        priv: "{{ item[1] }}.*:ALL"
+        append_privs: yes
+        password: redhat
+      with_nested:
+        - [ 'joe', 'jane' ]
+        - [ 'clientdb', 'employeedb', 'providerdb' ]

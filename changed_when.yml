@@ -1,0 +1,12 @@
+---
+- name: play to know error handling
+  hosts:  servera
+  user: devops
+  become: true
+  tasks:
+    - name: clear yum cache
+      command: yum clean metadata
+      register: command_result
+      changed_when: '"\n0 metadata files removed" not in command_result.stdout'
+
+    - debug:  var=command_result

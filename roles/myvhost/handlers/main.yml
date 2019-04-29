@@ -1,0 +1,5 @@
+---
+- name: sai-restart
+  service:
+    name: httpd
+    state:  restarted

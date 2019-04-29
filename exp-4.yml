@@ -1,0 +1,40 @@
+---
+- name: play to install and configure http server
+  hosts: servera
+  user: devops
+  become: true
+  
+  tasks:
+    - name: Install httpd
+      yum:
+        name:  httpd
+        state: latest
+    - name: Start Service
+      service:
+       name: httpd
+       state: started
+       enabled: true
+    
+    - name: Create index.html
+      copy:
+        content: "This site belongs to enrichyourskills"
+        dest: /var/www/html/index.html
+
+    - name: Stop firewalld
+      firewalld:
+        service: http
+        state: enabled
+        permanent: true
+        immediate: true
+
+- name: play to check the site
+  hosts: localhost
+  tasks:
+    - name: connect to internet
+      uri:
+         url: http://servera.lab.example.com
+         status_code: 200
+      register: status
+
+    - debug: var=status
+...

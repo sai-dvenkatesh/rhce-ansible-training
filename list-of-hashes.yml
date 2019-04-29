@@ -1,0 +1,15 @@
+---
+- name: Play to learn list of hashes loops
+  hosts: servera
+  tasks: 
+    - name: create usera and add to groups
+      user:
+        name: "{{ item.name }}"
+        state: present
+        groups: "{{ item.groups }}"
+      #with_items: "{{ package }}"
+      with_items:
+        - { name: 'mary', groups: 'wheel' }
+        - { name: 'lisa', groups: 'root' }
+        - { name: 'john', groups: 'wheel' }
+        - { name: 'john', groups: 'will' }

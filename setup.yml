@@ -1,0 +1,13 @@
+---
+- name: play to check the site
+  hosts: web,db
+  become: true
+  user: devops
+  gather_facts: no
+  tasks:
+    - name: connect to internet
+      yum:
+        name: httpd
+        state: present
+      #when: ansible_hostname == 'servera'
+      when: inventory_hostname in groups['web']

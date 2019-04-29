@@ -1,0 +1,10 @@
+---
+- name: Install Mariadb Server
+  hosts: servera
+  tasks: 
+    - name: copy files to tmp
+      copy:
+        src: "{{ item }}"
+        dest: /tmp
+      with_fileglob:
+        - files/*

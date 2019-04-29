@@ -1,0 +1,11 @@
+---
+- name: play to install and configure http server
+  hosts: servera,serverb,tower,serverc.lab.example.com
+  user: devops
+  become: true
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: latest
+      when: ansible_hostname == 'servera' and {{ ansible_memtotal_mb }}>=512

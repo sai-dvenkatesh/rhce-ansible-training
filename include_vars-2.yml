@@ -1,0 +1,35 @@
+---
+- name: play to install and configure http server
+  hosts: web
+  user: devops
+  become: true
+  tasks:
+    - name: include the variables
+      include_vars: vars/vars.yml
+
+    - name: install packages
+      include: tasks/http-tasks.yml
+    - name: start and enable httpd {{ web_pkg }} package
+      service:
+        name: "{{ web_service }}"
+        state: started
+        enabled: true
+
+    - name: start and enable the {{ firewall_service }} package
+      service: 
+        name: "{{ firewall_service }}"
+        state: started
+        enabled: true
+
+    - name: create index file
+      copy:
+        content: "Example Web Content"
+        dest: /var/www/html/index.html
+
+    - name: open port for "{{ rule }}"
+      firewalld:
+        service: "{{ rule }}"
+        state: enabled
+        permanent: true
+        immediate: true
+...

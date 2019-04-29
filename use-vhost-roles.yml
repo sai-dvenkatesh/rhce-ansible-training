@@ -1,0 +1,5 @@
+---
+- name: play to learn roles
+  hosts:  servera,serverb
+  roles:
+    - myvhost

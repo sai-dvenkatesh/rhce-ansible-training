@@ -1,0 +1,13 @@
+---
+- name: play to learn file sequence loops
+  hosts: servera
+  tasks:
+    - name: display the content
+      debug:
+        msg:  "{{ item }}"
+      with_random_choice:
+        - I am RHCE
+        - I am rhcsa
+        - I am RhCa
+        - I am RHCVM
+

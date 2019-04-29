@@ -1,0 +1,3 @@
+---
+- src:  http://materials/roles-library/student.bash_env.tgz
+  name: student

@@ -1,0 +1,19 @@
+---
+- name: play to create folder and copy the fact file
+  hosts: servera, serverb
+  user: devops
+  become: true
+  vars:
+   remote_dir: /etc/ansible/facts.d
+   facts_file: custom.fact
+  tasks:
+    - name: Create the remote directory
+      file: 
+        path: "{{ remote_dir }}"
+        state: directory
+        recurse: yes
+
+    - name: copy the fact files
+      copy:
+        src: "{{ facts_file }}"
+        dest: "{{ remote_dir }}"

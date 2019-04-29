@@ -1,0 +1,22 @@
+---
+- name: Install Mariadb Server
+  hosts: servera
+  tasks: 
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present  
+    - name: Install httpd
+      service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: content to the server
+      lineinfile:
+        line: "{{ item }}"
+        insertafter: "^u files/b"
+        dest: /var/www/html/index.html
+      with_file:
+        - files/a
+        - files/b
+        - files/c

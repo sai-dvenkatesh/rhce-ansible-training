@@ -1,0 +1,20 @@
+---
+- name: Play to learn simple loops
+  hosts: servera
+  #vars:
+  #  package:
+  #    - bind
+  #    - httpd
+  tasks: 
+    - name: install packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      #with_items: "{{ package }}"
+      with_items:
+        - bind
+        - vsftpd
+        - samba
+        - ftp
+    
+

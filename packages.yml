@@ -1,0 +1,33 @@
+---
+- name: play to install and configure http server
+  hosts: servera
+  user: devops
+  become: true
+  vars:
+    pkg_web: httpd
+  tasks:
+    - name: install httpd
+      yum:
+        name:
+          - "{{ pkg_web }}"
+        state: latest
+
+    - name: copy the configuration files
+      template:
+        src: httpd.j2
+        dest: /etc/httpd/conf/httpd.conf
+
+    - name: start the server
+      service:
+        name: httpd
+        state:  started
+        enabled: true
+
+    - name: open firewall
+      firewalld:
+        name: service
+        rule: http
+        permanent: true
+        immediate: true
+
+  

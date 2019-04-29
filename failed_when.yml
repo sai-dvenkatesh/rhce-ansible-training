@@ -1,0 +1,13 @@
+---
+- name: play to know error handling
+  hosts:  servera
+  user: devops
+  become: true
+  tasks:
+    - name: install http package
+      shell:  "df -h /tmp| grep -v Filesystem | awk '{print $4}'| cut -d G -f1"
+      register: tmpspace
+      failed_when: "tmpspace.stdout|float < 30"
+
+
+    - debug:  var=tmpspace

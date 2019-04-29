@@ -1,0 +1,9 @@
+---
+- name: install packages
+  yum:
+    name:
+      - "{{ web_pkg }}"
+      - "{{ firewall_pkg }}"
+      - "{{ python_pkg }}"
+    state: latest
+

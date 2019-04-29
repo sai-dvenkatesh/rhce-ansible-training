@@ -1,0 +1,21 @@
+---
+- name: play to check the site
+  hosts: localhost
+  become: true
+  user: devops
+  tasks:
+    - name: connect to internet
+      yum:
+        name: httpd
+        state: latest
+      register: result
+
+    - debug: var=result
+
+    - name: var=result
+      service:
+        name: httpd
+        state: restarted
+        enabled: true
+      when: result.changed == false
+...

@@ -1,0 +1,6 @@
+---
+- name: This is string
+        'this is string'
+        "hello hai"
+  hosts: servera
+...

@@ -1,0 +1,6 @@
+---
+- name: > 
+        Example Company
+        123 
+  hosts: servera
+...

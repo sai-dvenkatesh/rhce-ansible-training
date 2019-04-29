@@ -1,0 +1,18 @@
+---
+- name: play  to  install cifs  server
+  hosts: servera
+  user: devops
+  become: true
+
+  tasks:
+    - name: install samba
+      yum:
+        name: samba
+        state: latest
+
+    - name: Start and Enable Samba
+      service:
+        name: smb
+        state: started
+        enabled: true
+...

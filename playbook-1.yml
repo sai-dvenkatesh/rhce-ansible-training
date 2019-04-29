@@ -1,0 +1,17 @@
+---
+- name: Play to test custom facts
+  hosts: servera,serverb
+  user: devops
+  become: true
+  tasks:
+    - name: Install httpd
+      yum:
+        name: "{{ ansible_local.custom.general.package }}"
+        state: latest
+    
+    - name: Start and Enable Service
+      service:
+        name: "{{ ansible_local.custom.general.package }}"
+        state: "{{ ansible_local.custom.general.state }}"
+
+

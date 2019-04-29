@@ -1,0 +1,9 @@
+---
+- name: Play to learn file sequence
+  hosts: servera
+  tasks: 
+    - name: create users with file_sq
+      user:
+       name: "{{ item }}"
+       state: present
+      with_sequence: start=0 end=9 format=testusers%x
